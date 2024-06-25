@@ -82,11 +82,7 @@ namespace ZLogger
 
         public void Return()
         {
-            if (state is VersionedLogState)
-            {
-                Unsafe.As<TState, VersionedLogState>(ref state).Release();
-            }
-            else if (state is IReferenceCountable)
+            if (state is IReferenceCountable)
             {
                 ((IReferenceCountable)state).Release();
             }

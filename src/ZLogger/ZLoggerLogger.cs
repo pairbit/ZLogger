@@ -37,13 +37,7 @@ namespace ZLogger
             var info = new LogInfo(category, new Timestamp(timeProvider), logLevel, eventId, exception, scopeState, context, callerMemberName, callerFilePath, callerLineNumber);
 
             IZLoggerEntry entry;
-            if (state is VersionedLogState)
-            {
-                var s = Unsafe.As<TState, VersionedLogState>(ref state);
-                entry = s.CreateEntry(info);
-                s.Retain();
-            }
-            else if (state is IZLoggerEntryCreatable)
+            if (state is IZLoggerEntryCreatable)
             {
                 entry = ((IZLoggerEntryCreatable)state).CreateEntry(info);
                 if (state is IReferenceCountable)
